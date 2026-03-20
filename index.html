@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#050505" />
+  <title>RAVEN</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="img/favicon.jpg" />
+</head>
+<body>
+
+  <audio id="bgMusic" loop preload="auto">
+    <source src="img/dark_night.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <div class="fog-wrap" aria-hidden="true">
+    <div class="fog fog--a"></div>
+    <div class="fog fog--b"></div>
+    <div class="fog fog--c"></div>
+  </div>
+
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+  <!-- интро -->
+  <div id="introOverlay" class="intro-overlay" aria-hidden="true">
+    <img class="intro-gif" src="img/raven.gif" alt="" aria-hidden="true" />
+    <canvas id="introCanvas"></canvas>
+    <div class="intro-vignette"></div>
+    <div class="intro-title" id="introTitle">RAVEN</div>
+    <div class="intro-skip">нажми чтобы пропустить</div>
+  </div>
+
+  <!-- музыка -->
+  <button class="music-btn" id="musicBtn" aria-label="Музыка">
+    <svg class="music-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <path d="M9 18V5l12-2v13"/>
+      <circle cx="6" cy="18" r="3"/>
+      <circle cx="18" cy="16" r="3"/>
+    </svg>
+    <div class="music-bars" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </button>
+
+  <div id="nightBanner" class="night-banner" hidden>
+    <div class="night-banner__inner">
+      <span aria-hidden="true">☽</span>
+      <span>the raven watches. it knows you are awake.</span>
+      <span aria-hidden="true">☽</span>
+    </div>
+  </div>
+
+  <!-- пасхалка -->
+  <div id="secretOverlay" class="secret-overlay" hidden>
+    <div class="secret-box">
+      <div class="spinning-cross" aria-hidden="true">&#x2628;</div>
+      <p class="secret-title">THE RAVEN SPEAKS</p>
+      <p class="secret-body">
+        Three eyes opened.<br/>
+        One truth remains.<br/>
+        <em>You were always meant to find this.</em>
+      </p>
+      <div class="secret-coord">51.5081° N · 0.0759° W · THE TOWER</div>
+      <button class="secret-close" id="overlayClose">[ dissolve ]</button>
+    </div>
+  </div>
+
+  <!-- Пасхалка2-->
+  <div id="comboFlash" class="combo-flash" aria-hidden="true">
+    <div class="combo-cross" aria-hidden="true">&#x2628;</div>
+    <span>ᚱ ᚨ ᚹ ᛖ ᚾ</span>
+  </div>
+
+  <main class="site" role="main">
+
+    <header class="site-header">
+      <div class="eyebrow" aria-hidden="true">
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-text">est. in darkness</span>
+        <span class="eyebrow-line"></span>
+      </div>
+
+      <h1 class="title" id="ravenTitle" aria-label="RAVEN">
+        <span class="t-letter" data-char="R">R</span>
+        <span class="t-letter" data-char="A">A</span>
+        <span class="t-letter" data-char="V">V</span>
+        <span class="t-letter" data-char="E">E</span>
+        <span class="t-letter" data-char="N">N</span>
+      </h1>
+
+      <div class="title-rule" aria-hidden="true">
+        <span class="rule-line"></span>
+        <span class="spinning-cross-small">&#x2628;</span>
+        <span class="rule-line"></span>
+      </div>
+    </header>
+
+    <section class="hero">
+
+      <div class="raven-wrap">
+        <svg
+          class="raven-svg"
+          id="perchedRaven"
+          viewBox="0 0 360 280"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Ворон на ветке"
+        >
+          <path d="M0 228 C60 222 120 226 180 224 C240 222 300 226 360 220"
+            stroke="#131313" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M40 225 C55 223 70 224 85 225"
+            stroke="#1a1a1a" stroke-width="1.5" fill="none" opacity="0.6"/>
+          <path d="M152 224 C138 235 126 248 118 262 C128 240 122 260 132 264
+                   C138 242 134 262 144 265 C148 243 144 264 154 266
+                   C156 244 152 224 152 224Z" fill="#090909"/>
+          <ellipse cx="188" cy="194" rx="46" ry="34" fill="#0a0a0a"/>
+          <path d="M148 185 C162 170 195 174 212 182" stroke="#161624" stroke-width="2" fill="none" opacity="0.7"/>
+          <path d="M146 192 C160 177 196 181 214 190" stroke="#12121e" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <path d="M150 199 C164 184 196 188 212 197" stroke="#0f0f1a" stroke-width="1" fill="none" opacity="0.4"/>
+          <path d="M148 190 C158 168 190 172 208 180 C198 196 172 202 158 205 C152 202 148 190 148 190Z" fill="#0d0d0d"/>
+          <path d="M152 188 C165 174 191 176 206 183" stroke="#1c1c1c" stroke-width="1.2" fill="none"/>
+          <path d="M150 194 C164 180 192 182 208 189" stroke="#181818" stroke-width="1" fill="none"/>
+          <path d="M195 166 C200 156 204 146 202 136" stroke="#0a0a0a" stroke-width="16" stroke-linecap="round" fill="none"/>
+          <path d="M197 163 C201 152 205 143 203 134" stroke="#141420" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.5"/>
+          <circle cx="200" cy="122" r="24" fill="#0a0a0a"/>
+          <ellipse cx="194" cy="115" rx="10" ry="7" fill="#111118" opacity="0.6"/>
+          <path d="M219 119 L245 116 L222 128Z" fill="#0e0e0e"/>
+          <path d="M219 119 L232 117" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+          <!-- Глаз  -->
+          <circle id="ravenEye" class="raven-eye" cx="210" cy="116" r="7" fill="#111111"/>
+          <circle cx="211" cy="116" r="4" fill="#070707"/>
+          <circle id="ravenGleam" class="raven-gleam" cx="213.5" cy="113" r="2.2" fill="#2a2a2a"/>
+          <circle class="raven-eye-ring" cx="210" cy="116" r="10" fill="none" stroke="#4a4a7a" stroke-width="1" opacity="0"/>
+
+          <line x1="172" y1="224" x2="162" y2="238" stroke="#0e0e0e" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="162" y1="238" x2="147" y2="238" stroke="#0e0e0e" stroke-width="2.8" stroke-linecap="round"/>
+          <line x1="162" y1="238" x2="156" y2="248" stroke="#0e0e0e" stroke-width="2.8" stroke-linecap="round"/>
+          <line x1="162" y1="238" x2="165" y2="248" stroke="#0e0e0e" stroke-width="2.8" stroke-linecap="round"/>
+          <line x1="192" y1="224" x2="184" y2="238" stroke="#0e0e0e" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="184" y1="238" x2="169" y2="238" stroke="#0e0e0e" stroke-width="2.8" stroke-linecap="round"/>
+          <line x1="184" y1="238" x2="178" y2="248" stroke="#0e0e0e" stroke-width="2.8" stroke-linecap="round"/>
+          <line x1="184" y1="238" x2="188" y2="248" stroke="#0e0e0e" stroke-width="2.8" stroke-linecap="round"/>
+          <ellipse cx="185" cy="246" rx="56" ry="6" fill="#000" opacity="0.45"/>
+        </svg>
+        <p class="tap-hint" aria-hidden="true">· tap the eye ·</p>
+      </div>
+
+      <div class="verse">
+        <p class="verse-lead">
+          In the hollow between silence and echo,<br/>
+          where memory collapses and shadow <em>listens</em>—
+        </p>
+        <p class="verse-body">
+          the raven does not mourn the dead.<br/>
+          It only waits for the living<br/>
+          to become quiet enough to hear it.
+        </p>
+        <hr class="verse-hr" aria-hidden="true"/>
+        <p class="verse-attr">— from the book of unwatched hours</p>
+      </div>
+
+    </section>
+
+    <section class="pillars" aria-label="Три аспекта ворона">
+      <article class="pillar">
+        <div class="pillar-glyph" aria-hidden="true">𓆙</div>
+        <h2 class="pillar-title">Memory</h2>
+        <p class="pillar-body">It has watched empires fold into dust and remembered every name that was erased.</p>
+      </article>
+      <article class="pillar">
+        <div class="pillar-glyph spinning-cross-slow" aria-hidden="true">&#x2628;</div>
+        <h2 class="pillar-title">Silence</h2>
+        <p class="pillar-body">When the raven goes still, the world holds its breath. Even the wind asks permission.</p>
+      </article>
+      <article class="pillar">
+        <div class="pillar-glyph" aria-hidden="true">∞</div>
+        <h2 class="pillar-title">Return</h2>
+        <p class="pillar-body">It always comes back. To the tower. To the branch. To the eye that will not close.</p>
+      </article>
+    </section>
+
+    <p class="combo-hint" id="comboHint" aria-hidden="true">
+      hold  R · A · V · E · N  simultaneously
+    </p>
+
+    <footer class="site-footer" role="contentinfo">
+      <span aria-hidden="true">⸻</span>
+      <span class="footer-text">omnia transit · nihil obliviscitur</span>
+      <span aria-hidden="true">⸻</span>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
